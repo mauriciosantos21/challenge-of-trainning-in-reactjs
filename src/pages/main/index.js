@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as ComicsActions } from '../../store/ducks/comics';
@@ -8,9 +9,7 @@ import Card from '../../components/card';
 import './style.scss';
 
 function searchingFor(term) {
-  return function (x) {
-    return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
-  };
+  return x => x.title.toLowerCase().includes(term.toLowerCase()) || !term;
 }
 class Main extends Component {
   static propTypes = {
@@ -27,7 +26,8 @@ class Main extends Component {
   };
 
   async componentDidMount() {
-    this.props.getComicsRequest();
+    const { getComicsRequest } = this.props;
+    getComicsRequest();
   }
 
   searchHandler = (event) => {
@@ -41,7 +41,15 @@ class Main extends Component {
     const { comics } = this.props;
     return (
       <Fragment>
-        <input type="text" placeholder="Search..." onChange={this.searchHandler} />
+        <div className="search-div">
+          <InputBase
+            className="search"
+            type="text"
+            placeholder="Search..."
+            onChange={this.searchHandler}
+          />
+          <SearchIcon className="search-icon" />
+        </div>
         <div className="card-list">
           {comics.data.filter(searchingFor(search)).map(comic => (
             <Card key={comic.id} comic={comic} />

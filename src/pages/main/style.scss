@@ -3,3 +3,27 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+
+.search-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  align-content: center;
+  align-items: center;
+}
+.search {
+  width: 400px;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.search-icon {
+  align-items: center;
+  height: "100%";
+  position: "absolute";
+  margin-top: 10px;
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+}
