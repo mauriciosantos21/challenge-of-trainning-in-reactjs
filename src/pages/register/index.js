@@ -24,10 +24,6 @@ class Register extends Component {
     addPromotion: PropTypes.func.isRequired,
     addPurchased: PropTypes.func.isRequired,
     addComic: PropTypes.func.isRequired,
-    comic: PropTypes.shape({
-      title: PropTypes.string,
-      description: PropTypes.string,
-    }).isRequired,
   };
 
   state = {
@@ -95,7 +91,7 @@ class Register extends Component {
               onChange={e => this.setState({ description: e.target.value })}
             />
           </FormControl>
-          <FormControl>
+          <FormControl className="select-status">
             <InputLabel htmlFor="status">Status</InputLabel>
             <Select
               value={status}
@@ -111,10 +107,11 @@ class Register extends Component {
               <MenuItem value="promocao">Promoção</MenuItem>
             </Select>
           </FormControl>
-
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Salvar
-          </Button>
+          <FormControl className="salvar-button">
+            <Button type="submit" fullWidth variant="contained" color="primary">
+              Salvar
+            </Button>
+          </FormControl>
         </form>
         <Dialog
           open={open}

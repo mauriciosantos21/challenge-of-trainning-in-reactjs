@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
+import { InputBase } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Card from '../../components/card';
 
@@ -35,7 +36,7 @@ class Promotion extends Component {
     return (
       <Fragment>
         <div className="search-div">
-          <input
+          <InputBase
             className="search"
             type="text"
             placeholder="Search..."
