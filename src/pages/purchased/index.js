@@ -36,13 +36,13 @@ class Purchased extends Component {
     return (
       <Fragment>
         <div className="search-div">
-          <SearchIcon className="search-icon" />
           <input
             className="search"
             type="text"
             placeholder="Search..."
             onChange={this.searchHandler}
           />
+          <SearchIcon className="search-icon" />
         </div>
         <div className="card-list">
           {comics.filter(searchingFor(search)).map(comic => (
