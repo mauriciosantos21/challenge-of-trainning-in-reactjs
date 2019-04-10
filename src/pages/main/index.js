@@ -4,6 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { Creators as ComicsActions } from '../../store/ducks/comics';
 import Card from '../../components/card';
 import './style.scss';
@@ -47,8 +48,12 @@ class Main extends Component {
             type="text"
             placeholder="Search..."
             onChange={this.searchHandler}
+            startAdornment={(
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+)}
           />
-          <SearchIcon className="search-icon" />
         </div>
         <div className="card-list">
           {comics.data.filter(searchingFor(search)).map(comic => (

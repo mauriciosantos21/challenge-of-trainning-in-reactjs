@@ -6,10 +6,9 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import './style.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -30,15 +29,25 @@ class Register extends Component {
     title: '',
     description: '',
     status: '',
+
+    path: '',
+    extension: '',
+
     open: false,
   };
 
   dataResult = () => {
-    const { title, description } = this.state;
+    const {
+      title, description, path, extension,
+    } = this.state;
     const comicData = {
       id: Math.random(),
       title,
       description,
+      thumbnail: {
+        path,
+        extension,
+      },
     };
     return comicData;
   };
@@ -63,7 +72,14 @@ class Register extends Component {
       addComic(data);
     }
 
-    this.setState({ open: true });
+    this.setState({
+      open: true,
+      title: '',
+      description: '',
+      status: '',
+      path: '',
+      extension: '',
+    });
   };
 
   handleClose = () => {
@@ -74,6 +90,13 @@ class Register extends Component {
     const { open, status } = this.state;
     return (
       <div className="container-register">
+        <AppBar position="static" color="primary" className="bar-register">
+          <Toolbar>
+            <Typography variant="h6" color="inherit">
+              Cadastrar
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <form className="form-register" onSubmit={this.addComic}>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="titulo">Título</InputLabel>
@@ -84,11 +107,26 @@ class Register extends Component {
             />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="descrição">Descrição</InputLabel>
-            <Input
-              id="descrição"
-              name="descrição"
+            <TextField
+              id="descricao"
+              label="Descrição"
+              placeholder=""
+              multiline
+              rowsMax="4"
+              margin="normal"
               onChange={e => this.setState({ description: e.target.value })}
+            />
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="url">Url Imagem</InputLabel>
+            <Input id="url" name="url" onChange={e => this.setState({ path: e.target.value })} />
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="extensao">Extensão da Imagem</InputLabel>
+            <Input
+              id="extensao"
+              name="extensao"
+              onChange={e => this.setState({ extension: e.target.value })}
             />
           </FormControl>
           <FormControl className="select-status">
@@ -109,23 +147,18 @@ class Register extends Component {
           </FormControl>
           <FormControl className="salvar-button">
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Salvar
+              Cadastrar
             </Button>
           </FormControl>
         </form>
-        <Dialog
+        <Snackbar
           open={open}
           onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">Adicionado com Sucesso</DialogTitle>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Quadrinho adicionado com sucesso!</span>}
+        />
       </div>
     );
   }

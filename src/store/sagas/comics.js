@@ -15,16 +15,16 @@ export function* getComics() {
   try {
     const { data } = yield call(
       api.get,
-      `comics?ts=${timestamp}&limit=10&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`,
+      `comics?ts=${timestamp}&limit=12&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`,
     );
 
     const comics = data.data.results;
-
     const mapResult = (comic) => {
       const comicData = {
         id: comic.id,
         title: comic.title,
         description: comic.description,
+        thumbnail: comic.thumbnail,
       };
       return comicData;
     };

@@ -1,9 +1,9 @@
 .card {
-  width: 300px;
+  width: 400px;
   margin: 10px;
   display: flex;
   flex-direction: column;
-  max-height: 350px;
+  max-height: 400px;
 }
 .actions-div {
   display: flex;
@@ -20,4 +20,24 @@
 }
 .promotion-icon {
   color: goldenrod;
+}
+.media {
+  height: 250px;
+  align-items: center;
+}
+.action-area {
+  display: flex;
+}
+
+.card-dialog {
+  width: 400px;
+  height: 600px;
+  margin: 20px;
+}
+.img-card-dialog {
+  height: 324px;
+}
+.card-content-dialog {
+  overflow: auto;
+  height: 276px;
 }

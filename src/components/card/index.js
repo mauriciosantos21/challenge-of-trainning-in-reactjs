@@ -7,15 +7,15 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import BookMarkIcon from '@material-ui/icons/BookmarkBorder';
 import MoneyOff from '@material-ui/icons/MoneyOffOutlined';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Tooltip from '@material-ui/core/Tooltip';
 
-import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import { CardActionArea, CardMedia, Snackbar } from '@material-ui/core';
+
 import Typography from '@material-ui/core/Typography';
 import { Creators as FavoritesActions } from '../../store/ducks/favorites';
 import { Creators as PromotionsActions } from '../../store/ducks/promotions';
@@ -60,6 +60,7 @@ class CardComic extends Component {
 
   state = {
     open: false,
+    openCard: false,
     msg: '',
   };
 
@@ -103,24 +104,36 @@ class CardComic extends Component {
     this.setState({ open: false });
   };
 
+  handleOpenCard = () => {
+    this.setState({ openCard: true });
+  };
+
+  handleCloseCard = () => {
+    this.setState({ openCard: false });
+  };
+
   verifyInState = (comic, comics) => comics.find(item => item.id === comic.id);
 
   render() {
-    const { open, msg } = this.state;
+    const { open, msg, openCard } = this.state;
     const {
       comic, favorites, purchased, promotions,
     } = this.props;
     return (
       <Fragment>
         <Card className="card">
-          <CardContent className="card-content">
-            <Typography gutterBottom variant="h5" component="h2">
-              {comic.title}
-            </Typography>
-            <Typography component="p" title={comic.description}>
-              {comic.description}
-            </Typography>
-          </CardContent>
+          <CardActionArea className="action-area" onClick={() => this.handleOpenCard()}>
+            <CardMedia
+              className="media"
+              image={`${comic.thumbnail.path}/standard_fantastic.${comic.thumbnail.extension}`}
+              title="Contemplative Reptile"
+            />
+            <CardContent className="card-content">
+              <Typography gutterBottom variant="h5" component="h5">
+                {comic.title}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
           <CardActions className="actions-div">
             <Tooltip title="Add aos Favoritos">
               <IconButton
@@ -166,19 +179,34 @@ class CardComic extends Component {
             </Tooltip>
           </CardActions>
         </Card>
+
         <Dialog
+          open={openCard}
+          onClose={this.handleCloseCard}
+          aria-labelledby="simple-dialog-title"
+        >
+          <Card className="card-dialog">
+            <CardMedia
+              className="img-card-dialog"
+              image={`${comic.thumbnail.path}/standard_fantastic.${comic.thumbnail.extension}`}
+              title="Contemplative Reptile"
+            />
+            <CardContent className="card-content-dialog">
+              <Typography gutterBottom variant="h5" component="h5" className="title-dialog">
+                {comic.title}
+              </Typography>
+              <Typography component="p">{comic.description}</Typography>
+            </CardContent>
+          </Card>
+        </Dialog>
+        <Snackbar
           open={open}
           onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{msg}</DialogTitle>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{msg}</span>}
+        />
       </Fragment>
     );
   }

@@ -1,7 +1,7 @@
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .search-div {
@@ -26,4 +26,8 @@
   display: "flex";
   align-items: "center";
   justify-content: "center";
+}
+
+.icon-button {
+  z-index: 1;
 }

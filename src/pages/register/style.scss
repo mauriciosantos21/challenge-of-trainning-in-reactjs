@@ -1,11 +1,15 @@
 .container-register {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  margin: 10px;
+  border: 5px black;
 }
 .form-register {
   width: 400px;
   padding: 5px;
-  border: 3px;
+  border: 10px;
+  margin: 10x;
 }
 .select-status {
   width: 100%;
@@ -14,4 +18,8 @@
 .salvar-button {
   margin-top: 100px;
   width: 100%;
+}
+.bar-register {
+  width: 400px;
+  height: 50px;
 }
