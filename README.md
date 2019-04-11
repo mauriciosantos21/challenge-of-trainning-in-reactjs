@@ -13,6 +13,6 @@ A aplicação consiste em uma lista de quadrinhos da marvel com funcionalidades 
 ### Iniciar
 
 1. $ git clone https://github.com/mauriciosantos21/challenge-of-trainning-in-reactjs
-2. $ challenge-of-trainning-in-reactjs
+2. $ cd challenge-of-trainning-in-reactjs
 3. $ yarn install
 4. $ yarn start
